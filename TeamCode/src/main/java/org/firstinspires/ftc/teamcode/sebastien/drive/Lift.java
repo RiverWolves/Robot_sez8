@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.sebastien.drive;
+
+import android.sax.StartElementListener;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,12 +11,15 @@ import org.firstinspires.ftc.teamcode.sebastien.resources.Util;
 
 public class Lift {
 
-    public static final int LIMITARE_SUS_LIFT = 10000;
+    public static final int LIMITARE_SUS_LIFT = 10000,
+            pozitieJos=0 ,
+            LIMITARE_JOS_LIFT = 0,
+            pozitieSus = 10000;
 
-    private static final float LIMITARE_JOS_LIFT = 0;
     private static float y = 0;
-    private static float putere = 1;
-    private static float pow_nivel = 0.4f;
+    private static float putere = 1 ;
+    public static int target = 0;
+    private static boolean esteRidicat, stateHasChanged;
     public static float pozitie_lift = 0;
     private static Util fineControlls ;
 
@@ -38,6 +43,7 @@ public class Lift {
         lift2.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         fineControlls = new Util();
+        esteRidicat = false;
     }
 
     public static void loop(OpMode opMode) {
@@ -53,17 +59,28 @@ public class Lift {
         else {
             putere = 0;
         }
+        if(stateHasChanged && putere ==0)
+        {
+            if(esteRidicat)
+                target = pozitieJos;
+            else
+                target = pozitieSus;
+            lift1.setTargetPosition(target);
+            lift2.setTargetPosition(target);
+            lift1.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            lift2.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            stateHasChanged = false;
 
-        putere = fineControlls.fineControl(opMode.gamepad2.left_bumper, putere);
+        }
+        else {
+            putere = fineControlls.fineControl(opMode.gamepad2.left_bumper, putere);
 
-        lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-       /* if (input != 0) {
+/*            lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
-        }*/
-        lift1.setPower(putere);
-        lift2.setPower(putere);
-
+            lift1.setPower(putere);
+            lift2.setPower(putere);
+        }
         //RUMBLE
         if (input > 0.3f && pozitie_lift >= LIMITARE_SUS_LIFT){
             fineControlls.rumble(opMode.gamepad2);
@@ -78,6 +95,12 @@ public class Lift {
 
     public static void setVal(float stick) {
     y = stick;
+    }
+
+    public static void setNivel(boolean state)
+    {
+        esteRidicat = state;
+        stateHasChanged = true;
     }
 
     public static float getPoz() {

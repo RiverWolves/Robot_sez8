@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.sebastien.resources;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -14,9 +16,15 @@ public class SHardware {
     public static DcMotorEx ss, sf, ds, df,lift1, lift2;
 
     public static Servo intake, rotire, avion;
-    public static IMU imu;
+    public static BNO055IMU imu;
     public static void init(OpMode opMode, boolean auto)
     {
+        imu = (BNO055IMU) opMode.hardwareMap.get(IMU.class, "imu");
+        /*BNO055IMU.Parameters parameters = new BNO055IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD)
+        );*/
+/*        imu.initialize(parameters);*/
 
         //intake
         intake =(Servo) opMode.hardwareMap.get("cleste");
@@ -48,22 +56,15 @@ public class SHardware {
 
         lift2 = opMode.hardwareMap.get(DcMotorEx.class, "lift2");
         MotorConfigurationType mconf2 = lift2.getMotorType().clone(); mconf2.setAchieveableMaxRPMFraction(1.0);
-        lift1.setMotorType(mconf2);
-
-
+        lift2.setMotorType(mconf2);
         lift2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-
         lift2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //To Do : Check orientare motoare lift
         lift2.setDirection(DcMotorEx.Direction.REVERSE);
 
 
-
-        //Brat
 
         initializat = true;
         opMode.telemetry.addData("Hardware initializat: ", initializat);

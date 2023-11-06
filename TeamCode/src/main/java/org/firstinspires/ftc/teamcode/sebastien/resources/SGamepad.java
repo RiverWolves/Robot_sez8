@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode.sebastien.resources;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.drive.Avion;
-import org.firstinspires.ftc.teamcode.drive.IntakeOutake;
-import org.firstinspires.ftc.teamcode.drive.Lift;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Avion;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Cleste;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Lift;
 
 public class SGamepad {
     private static float x, y, r, putere_lift;
     private static boolean  buton1, buton2;
-    private static Util inchis, roti,rotit,avion;
+    private static Util inchis, roti,rotit,avion,lift;
 
 
     private static boolean fc_roti,fc_lift;
@@ -47,7 +47,7 @@ public class SGamepad {
 /*        x = gamepad1.left_stick_x;
       y= gamepad1.left_stick_y;
       r = gamepad1.right_stick_y;*/
-      MechanumWheelsProvizorii.setVelXYR(x, -y, -r);
+      Roti.setVelXYR(x, -y, -r);
 
 
       //Intake
@@ -55,11 +55,13 @@ public class SGamepad {
       boolean buton2 = rotit.buttonToSwich(gamepad2.x);
       //avion
       boolean buton3 = avion.buttonToSwich(gamepad2.y);
+      boolean buton4 = lift.buttonToSwich(gamepad2.dpad_down);
 
 
-    IntakeOutake.setInchis(buton1,opMode); //setam starea intake-ului
-      IntakeOutake.setRotire(!buton2,opMode);
+    Cleste.setInchis(buton1,opMode); //setam starea intake-ului
+      Cleste.setRotire(!buton2,opMode);
       Avion.setLauncher(buton3);
+      Lift.setNivel(true);
       opMode.telemetry.addData("SGamepad:PutereLift: " , putere_lift);
       opMode.telemetry.addData("SGamepad:rotit " , buton2);
       opMode.telemetry.addData("SGamepad:inchis " , buton1);

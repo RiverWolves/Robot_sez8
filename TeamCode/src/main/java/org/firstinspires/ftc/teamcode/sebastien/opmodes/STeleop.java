@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode.sebastien.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.drive.Avion;
-import org.firstinspires.ftc.teamcode.drive.IntakeOutake;
-import org.firstinspires.ftc.teamcode.drive.Lift;
-import org.firstinspires.ftc.teamcode.sebastien.resources.MechanumWheelsProvizorii;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Avion;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Cleste;
+import org.firstinspires.ftc.teamcode.sebastien.drive.Lift;
+import org.firstinspires.ftc.teamcode.sebastien.resources.Roti;
 import org.firstinspires.ftc.teamcode.sebastien.resources.SGamepad;
 import org.firstinspires.ftc.teamcode.sebastien.resources.SHardware;
 
@@ -18,7 +17,7 @@ public class STeleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         SHardware.init(this,false);
         SGamepad.init();
-        IntakeOutake.init();
+        Cleste.init();
         Lift.init();
         Avion.init();
         waitForStart();
@@ -26,11 +25,11 @@ public class STeleop extends LinearOpMode {
         while(opModeIsActive())
         {
 
-        MechanumWheelsProvizorii.loop(this);
+        Roti.loop(this);
 
 
             SGamepad.loop(this);
-            IntakeOutake.loop(this);
+            Cleste.loop(this);
             Lift.loop(this);
             Avion.loop();
             telemetry.update();

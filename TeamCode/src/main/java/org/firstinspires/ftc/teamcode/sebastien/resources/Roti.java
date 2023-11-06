@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.sebastien.resources;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-public class MechanumWheelsProvizorii {
+public class Roti {
     public static double[] puteri = {0,0,0};//respectiv x, y ,r(rotatie)
 
     public static void loop(OpMode opMode){

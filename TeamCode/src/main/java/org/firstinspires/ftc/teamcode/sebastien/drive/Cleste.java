@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.sebastien.drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.sebastien.resources.SHardware;
 
-public class IntakeOutake {
+public class Cleste {
     private static Servo intake, rotire ;
     public static boolean inchis;
     public static boolean rotit;
